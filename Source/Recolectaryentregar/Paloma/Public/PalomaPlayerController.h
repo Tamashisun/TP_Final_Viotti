@@ -12,7 +12,10 @@ class RECOLECTARYENTREGAR_API APalomaPlayerController : public APlayerController
 	GENERATED_BODY()
 
 public:
-    
+	
+	UFUNCTION(Server, Reliable, BlueprintCallable, Category = "Match")
+	void Server_RequestStartMatch();
+	
 	UFUNCTION(Server, Reliable, BlueprintCallable, Category = "Player")
 	void Server_SetPlayerName(const FString& NewName);
     
