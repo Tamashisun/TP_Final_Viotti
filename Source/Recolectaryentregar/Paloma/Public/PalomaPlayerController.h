@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Blueprint/UserWidget.h"
 #include "GameFramework/PlayerController.h"
 
 #include "PalomaPlayerController.generated.h"
@@ -11,12 +12,15 @@ class RECOLECTARYENTREGAR_API APalomaPlayerController : public APlayerController
 	GENERATED_BODY()
 
 public:
-	
+    
 	UFUNCTION(Server, Reliable, BlueprintCallable, Category = "Player")
 	void Server_SetPlayerName(const FString& NewName);
-	
+    
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnFinishPossession();
+
+	UPROPERTY(BlueprintReadWrite, Category = "UI")
+	TObjectPtr<UUserWidget> WBPHUD;
 
 protected:
 	// Server: se llama al poseer un pawn
@@ -24,4 +28,3 @@ protected:
 	// Client: se llama cuando el cliente reconoce la posesion
 	virtual void AcknowledgePossession(APawn* P) override;
 };
-
