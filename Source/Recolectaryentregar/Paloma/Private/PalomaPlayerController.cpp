@@ -23,10 +23,10 @@ void APalomaPlayerController::Server_SetPlayerName_Implementation(const FString&
 		PS->SetPlayerName(NewName);
 	}
 }
-void APalomaPlayerController::Server_RequestStartMatch_Implementation()
-{
-	if (APalomaGameMode* PalomaGameMode = GetWorld()->GetAuthGameMode<APalomaGameMode>())
-	{
-		PalomaGameMode->RequestStartMatch();
-	}
-}
+//void APalomaPlayerController::Server_RequestStartMatch_Implementation()
+//{
+//	if (APalomaGameMode* PalomaGameMode = GetWorld()->GetAuthGameMode<APalomaGameMode>())
+//	{
+//		PalomaGameMode->RequestStartMatch();
+//	}
+//}

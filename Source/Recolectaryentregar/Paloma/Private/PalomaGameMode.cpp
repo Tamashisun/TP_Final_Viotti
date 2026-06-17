@@ -5,42 +5,22 @@
 void APalomaGameMode::BeginPlay()
 {
 	Super::BeginPlay();
-}
 
-bool APalomaGameMode::RequestStartMatch()
-{
-	if (bMatchStarted)
-	{
-		return false;
-	}
-
-	APalomaGameState* PalomaGameState = GetGameState<APalomaGameState>();
-	if (!PalomaGameState || PalomaGameState->PlayerArray.Num() < MinPlayersToStart)
-	{
-		return false;
-	}
-
-	bMatchStarted = true;
-	StartCountdown();
-	return true;
-}
-
-void APalomaGameMode::StartCountdown()
-{
+	// Arrancamos el timer del countdown
 	GetWorldTimerManager().SetTimer(
 	   CountdownTimerHandle,
 	   this,
 	   &APalomaGameMode::TickCountdown,
 	   1.f,
-	   true,
-	   1.f
+	   true, // Loop
+	   1.f // Espera 1 seg para empezar
 	);
 }
 
 void APalomaGameMode::OnPostLogin(AController* NewPlayer)
 {
 	Super::OnPostLogin(NewPlayer);
-	
+    
 	RefreshPlayers();
 }
 
@@ -66,11 +46,11 @@ void APalomaGameMode::TickCountdown()
 
 		// Arrancamos el timer de la partida
 		GetWorldTimerManager().SetTimer(
-			MatchTimerHandle,
-			this,
-			&APalomaGameMode::TickMatchTimer,
-			1.f, // Cada 1 segundo
-			true // Loop
+		   MatchTimerHandle,
+		   this,
+		   &APalomaGameMode::TickMatchTimer,
+		   1.f, // Cada 1 segundo
+		   true // Loop
 		);
 	}
 }
@@ -103,4 +83,3 @@ void APalomaGameMode::EndMatch()
 	APalomaGameState* PalomaGameState = GetGameState<APalomaGameState>();
 	PalomaGameState->SetMatchPhase(EMatchPhase::Finished);
 }
-
