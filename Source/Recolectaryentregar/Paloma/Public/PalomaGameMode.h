@@ -13,6 +13,8 @@ class RECOLECTARYENTREGAR_API APalomaGameMode : public AGameModeBase
 	GENERATED_BODY()
 
 public:
+	UFUNCTION(BlueprintCallable, Category = "Match")
+	bool RequestStartMatch();
 	virtual void BeginPlay() override;
 	virtual void OnPostLogin(AController* NewPlayer) override;
 	
@@ -20,6 +22,11 @@ public:
 	void RefreshPlayers();
 
 private:
+	bool bMatchStarted = false;
+	int32 MinPlayersToStart = 2;
+
+	void StartCountdown();
+	
 	void TickCountdown();
 	void TickMatchTimer();
 	void EndMatch();

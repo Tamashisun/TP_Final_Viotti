@@ -5,15 +5,35 @@
 void APalomaGameMode::BeginPlay()
 {
 	Super::BeginPlay();
+}
 
-	// Arrancamos el timer del countdown
+bool APalomaGameMode::RequestStartMatch()
+{
+	if (bMatchStarted)
+	{
+		return false;
+	}
+
+	APalomaGameState* PalomaGameState = GetGameState<APalomaGameState>();
+	if (!PalomaGameState || PalomaGameState->PlayerArray.Num() < MinPlayersToStart)
+	{
+		return false;
+	}
+
+	bMatchStarted = true;
+	StartCountdown();
+	return true;
+}
+
+void APalomaGameMode::StartCountdown()
+{
 	GetWorldTimerManager().SetTimer(
-		CountdownTimerHandle,
-		this,
-		&APalomaGameMode::TickCountdown,
-		1.f,
-		true, // Loop
-		1.f // Espera 1 seg para empezar
+	   CountdownTimerHandle,
+	   this,
+	   &APalomaGameMode::TickCountdown,
+	   1.f,
+	   true,
+	   1.f
 	);
 }
 
