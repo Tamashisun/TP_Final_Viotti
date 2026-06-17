@@ -35,7 +35,7 @@ public:
 
 	// Timer
 	UPROPERTY(ReplicatedUsing = OnRep_MatchTimer, BlueprintReadOnly, EditDefaultsOnly)
-	float MatchTimer = 180.f;
+	float MatchTimer = 60.f;
 	UFUNCTION()
 	void OnRep_MatchTimer();
 	UPROPERTY(BlueprintAssignable)
